@@ -1,6 +1,5 @@
 import { auth, currentUser } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
-import { cookies } from 'next/headers'
  
 
 import prismadb from "@/lib/prismadb";
@@ -9,18 +8,9 @@ import { absoluteUrl } from "@/lib/utils";
 
 const settingsUrl = absoluteUrl("/settings");
 
-async function getCookieData() {
-  const cookieData = cookies().getAll()
-  return new Promise((resolve) =>
-    setTimeout(() => {
-      resolve(cookieData)
-    }, 1000)
-  )
-}
 
 export async function GET() {
   try {
-    const cookieData = await getCookieData()
     const { userId } = auth();
     const user = await currentUser();
 
